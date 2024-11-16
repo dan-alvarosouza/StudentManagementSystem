@@ -15,6 +15,15 @@ namespace StudentApi
 				context.SaveChanges();
 				return Results.NoContent();
 			});
+
+			app.MapPost("/courses/create", (StudentContext context, Course course) =>
+			{
+				context.Courses.Add(course);
+				context.SaveChanges();
+				return Results.NoContent();
+			});
+
+			app.MapGet("/courses", (StudentContext context) => context.Courses.ToArray());
 		}
 	}
 }
