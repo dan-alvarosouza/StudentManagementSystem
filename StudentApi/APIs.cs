@@ -1,4 +1,5 @@
 ﻿using StudentApi.Data;
+using StudentApi.Models;
 
 namespace StudentApi
 {
@@ -8,6 +9,12 @@ namespace StudentApi
 		{
 			app.MapGet("/students", (StudentContext context) => context.Students.ToArray());
 			app.MapGet("/students/{id}", (StudentContext context, int id) => context.Students.Find(id));
+			app.MapPost("/student/create", (StudentContext context, Student newStudent) =>
+			{
+				context.Students.Add(newStudent);
+				context.SaveChanges();
+				return Results.NoContent();
+			});
 		}
 	}
 }
