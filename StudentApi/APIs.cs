@@ -16,6 +16,15 @@ namespace StudentApi
 				return Results.NoContent();
 			});
 
+			app.MapDelete("/student/delete/{id}", (StudentContext context, int id) =>
+			{
+				var student = context.Students.Find(id);
+				if (student == null) return Results.NotFound();
+				context.Students.Remove(student);
+				context.SaveChanges();
+				return Results.NoContent();
+			});
+
 			app.MapPost("/courses/create", (StudentContext context, Course course) =>
 			{
 				context.Courses.Add(course);
