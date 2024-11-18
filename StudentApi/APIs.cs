@@ -25,6 +25,17 @@ namespace StudentApi
 				return Results.NoContent();
 			});
 
+			app.MapPut("/students/update/{id}", (StudentContext context, int id, Student updatedStudent) =>
+			{
+				var student = context.Students.Find(id);
+				if (student == null) return Results.NotFound();
+				student.FirstName = updatedStudent.FirstName;
+				student.LastName = updatedStudent.LastName;
+				student.Age = updatedStudent.Age;
+				context.SaveChanges();
+				return Results.NoContent();
+			});
+
 			app.MapPost("/courses/create", (StudentContext context, Course course) =>
 			{
 				context.Courses.Add(course);
